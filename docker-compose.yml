@@ -1,15 +1,21 @@
 services:
+  idp-backend:
+    build: .
+    image: my-idp-app:local
+    container_name: idp-backend-app
+    environment:
+      - JWT_SECRET=xT9$$mK2@vL7#pQ4*zW8%yR1^cN5&bF0!hJ6(dM3)
   db:
     container_name: postgres-spring-boot
     image: postgres:latest
     environment:
-      POSTGRES_USER: amigoscode
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: pass1234
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
     ports:
-      - "5332:5432"
+      - "5432:5432"
     networks:
       - db
     restart: unless-stopped
