@@ -44,13 +44,12 @@ public class AuthController {
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        //BCrypt verification logic
+        //B-Crypt verification logic
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
-        //Password is correct! Generate the HS256 JWT
+        //Password is correct! Generate the HS256 token
         String token = tokenService.generateToken(user);
-
         return ResponseEntity.ok(token);
     }
 
